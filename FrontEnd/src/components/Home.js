@@ -20,6 +20,11 @@ const Home = ({ tasks }) => {
 
   useEffect(() => {
     Aos.init({ duration: 1000 });
+    const urlParams = new URLSearchParams(window.location.search);
+    const token = urlParams.get('token');
+
+    // Log the token to the console
+    console.log("Google Login Token:", token);
   }, []);
 
   return (
