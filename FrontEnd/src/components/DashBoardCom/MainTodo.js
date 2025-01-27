@@ -6,7 +6,7 @@ import axios from "axios";
 const MainTodo = ({ todo, setTodo }) => {
   useEffect(() => {
     axios
-      .get(`${process.env.REACT_APP_API_URL}/todo/getTodo`)
+      .get(`${process.env.REACT_APP_API_URL}/todo/getTodo`, { withCredentials: true })
       .then((res) => {
         setTodo(res.data);
       })

@@ -15,7 +15,7 @@ const Notes = ({ notes, setNotes, toast }) => {
     Aos.init({ duration: 1000 });
     console.log("3");
     axios
-      .get(`${process.env.REACT_APP_API_URL}/note/getNote`)
+      .get(`${process.env.REACT_APP_API_URL}/note/getNote`, { withCredentials: true })
       .then((res) => {
         setNotes(res.data);
       })

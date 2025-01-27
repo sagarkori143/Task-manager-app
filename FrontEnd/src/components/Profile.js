@@ -28,7 +28,7 @@ const Profile = ({ tasks }) => {
         setAuthor(quotes.author);
       });
     axios
-      .get(`${process.env.REACT_APP_API_URL}/getUser`)
+      .get(`${process.env.REACT_APP_API_URL}/getUser`, { withCredentials: true })
       .then((res) => {
         // console.log(res.data);
         setUser(res.data);
