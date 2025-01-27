@@ -11,6 +11,11 @@ export default function Mainpage({ toast, signIn, user }) {
   const navigate = useNavigate();
 
   const googleAuth = () => {
+    console.log("this is the port:", process.env.REACT_APP_API_URL);
+    if (!process.env.REACT_APP_API_URL) {
+      console.error("REACT_APP_API_URL is undefined!");
+      return;
+    }
     window.open(`${process.env.REACT_APP_API_URL}/google`, "_self");
   };
 
