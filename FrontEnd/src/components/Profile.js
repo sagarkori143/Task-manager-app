@@ -21,7 +21,7 @@ const Profile = ({ tasks }) => {
   axios.defaults.withCredentials = true;
   useEffect(() => {
     Aos.init({ duration: 1200 });
-    fetch("http://api.quotable.io/random")
+    fetch("https://api.quotable.io/random")
       .then((res) => res.json())
       .then((quotes) => {
         setQuote(quotes.content);
