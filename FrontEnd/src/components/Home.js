@@ -7,6 +7,7 @@ import Profile from "./Profile";
 import { Outlet } from "react-router-dom";
 import Aos from "aos";
 import "aos/dist/aos.css";
+import axios from "axios";
 
 const Home = ({ tasks }) => {
   const [loading, setLoading] = useState(false);
@@ -20,11 +21,14 @@ const Home = ({ tasks }) => {
 
   useEffect(() => {
     Aos.init({ duration: 1000 });
-    const urlParams = new URLSearchParams(window.location.search);
-    const token = urlParams.get('token');
-
-    // Log the token to the console
-    console.log("Google Login Token:", token);
+    
+    axios.get('https://task-manager-app-v8af.onrender.com/getUser', { withCredentials: true })
+      .then(response => {
+        console.log('User:', response.data);
+      })
+      .catch(error => {
+        console.error('Error fetching user:', error);
+      });
   }, []);
 
   return (
