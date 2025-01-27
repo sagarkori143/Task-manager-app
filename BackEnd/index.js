@@ -11,7 +11,7 @@ const MongoStore = require("connect-mongo");
 const passport = require("passport");
 const TodoRoutes = require("./Routes/TodoRoutes");
 const NoteRoutes = require("./Routes/NoteRoutes");
-const TaskRoutes = require("./Routes/TaskRoutes");
+TaskRoutes = require("./Routes/TaskRoutes");
 const PORT = 8080;
 
 const app = express();
@@ -192,7 +192,12 @@ app.post("/forgotpass", async (req, res) => {
   });
 });
 
-
+const authenticator = (req, res, next) => {
+  // if (!req.isAuthenticated()) {
+  //   return res.status(401).json({ error: "Login Required" });
+  // }
+  // next();
+};
 app.use("/todo", [authenticator, TodoRoutes]);
 app.use("/note", [authenticator, NoteRoutes]);
 app.use("/task", [authenticator, TaskRoutes]);
