@@ -91,10 +91,14 @@ passport.deserializeUser((userId, done) => {
   authModel
     .findById(userId)
     .then((user) => {
+      if (!user) {
+        console.error("User not found during deserialization");
+        return done(null, false);
+      }
       done(null, user);
     })
     .catch((err) => {
+      console.error("Error during deserialization:", err);
       done(err);
     });
-  // return done(null, id);
 });
