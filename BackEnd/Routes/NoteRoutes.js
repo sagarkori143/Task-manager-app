@@ -1,12 +1,12 @@
 const noteRoutes = require("express").Router();
-const dataModel = require("../Models/DataModel");
+import dataModel, { findById, findByIdAndUpdate, findOneAndUpdate } from "../Models/DataModel";
 
 noteRoutes.get("/getNote", async (req, res) => {
   const { _id } = req.user;
   const newNote = new dataModel({
     _id: _id,
   });
-  let note = await dataModel.findById(_id);
+  let note = await findById(_id);
   if (!note) note = await newNote.save();
   console.log(note.notes);
   res.json(note.notes);
@@ -15,8 +15,7 @@ noteRoutes.get("/getNote", async (req, res) => {
 noteRoutes.post("/postNote", async (req, res) => {
   const { _id } = req.user;
   const note = req.body;
-  await dataModel
-    .findByIdAndUpdate({ _id: _id }, { $push: { notes: note } })
+  await findByIdAndUpdate({ _id: _id }, { $push: { notes: note } })
     .catch((err) => {
       console.log(err);
     });
@@ -26,8 +25,7 @@ noteRoutes.post("/postNote", async (req, res) => {
 noteRoutes.patch("/updateNote/:id", async (req, res) => {
   const { id } = req.params;
   const { newText } = req.body;
-  await dataModel
-    .findOneAndUpdate(
+  await findOneAndUpdate(
       { "notes.id": id },
       {
         $set: {
@@ -45,12 +43,11 @@ noteRoutes.patch("/updateNote/:id", async (req, res) => {
 noteRoutes.delete("/deleteNote/:id", async (req, res) => {
   const { _id } = req.user;
   const { id } = req.params;
-  await dataModel
-    .findByIdAndUpdate(_id, { $pull: { notes: { id: id } } })
+  await findByIdAndUpdate(_id, { $pull: { notes: { id: id } } })
     .catch((err) => {
       console.log(err);
     });
   res.json({ success: "Deleted successfully" });
 });
 
-module.exports = noteRoutes;
+export default noteRoutes;

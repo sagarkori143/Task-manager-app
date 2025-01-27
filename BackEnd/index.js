@@ -10,7 +10,7 @@ const session = require("express-session");
 const MongoStore = require("connect-mongo");
 const passport = require("passport");
 const TodoRoutes = require("./Routes/TodoRoutes");
-const NoteRoutes = require("./Routes/NoteRoutes");
+const NoteRoutes = require("./Routes/NoteRoutes").default;
 const TaskRoutes = require("./Routes/TaskRoutes");
 
 const PORT = 8080;
@@ -38,6 +38,8 @@ app.use(
     store: sessionStore,
     cookie: {
       maxAge: 1000 * 60 * 60 * 24,
+      sameSite: 'None',
+      secure: true,
     },
   })
 );
@@ -178,6 +180,7 @@ app.post("/forgotpass", async (req, res) => {
 
 const authenticator = (req, res, next) => {
   if (!req.isAuthenticated()) {
+    console.log("Please tell the user to login first!")
     return res.status(401).json({ error: "Login Required" });
   }
   next();
