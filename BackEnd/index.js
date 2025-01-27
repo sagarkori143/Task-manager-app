@@ -89,9 +89,20 @@ app.get(
 app.get(
   "/google/callback",
   passport.authenticate("google", {
-    failureRedirect: process.env.FRONTEND_DOMAIN,
-    successRedirect: `${process.env.FRONTEND_DOMAIN}/Home`,
-  })
+    failureRedirect: process.env.FRONTEND_DOMAIN,  // In case of failure, redirect to frontend domain
+  }),
+  (req, res) => {
+    // Check if the user is authenticated
+    if (req.user) {
+      const token = jwt.sign({ userId: req.user._id }, process.env.JWT_SECRET_KEY, { expiresIn: '1h' });
+
+      // Redirect to frontend and include the token as a query parameter
+      res.redirect(`${process.env.FRONTEND_DOMAIN}/Home?token=${token}`);
+    } else {
+      // If the user is not authenticated, redirect to the failure page
+      res.redirect(process.env.FRONTEND_DOMAIN);
+    }
+  }
 );
 
 //For Facebook Authentication
