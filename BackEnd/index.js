@@ -12,6 +12,7 @@ const passport = require("passport");
 const TodoRoutes = require("./Routes/TodoRoutes");
 const NoteRoutes = require("./Routes/NoteRoutes");
 TaskRoutes = require("./Routes/TaskRoutes");
+import authenticateJWT from "./middleware/authenticateJWT";
 const PORT = 8080;
 
 const app = express();
@@ -198,9 +199,9 @@ const authenticator = (req, res, next) => {
   }
   next();
 };
-app.use("/todo", [authenticator, TodoRoutes]);
-app.use("/note", [authenticator, NoteRoutes]);
-app.use("/task", [authenticator, TaskRoutes]);
+app.use("/todo", [authenticateJWT, TodoRoutes]);
+app.use("/note", [authenticateJWT, NoteRoutes]);
+app.use("/task", [authenticateJWT, TaskRoutes]);
 
 app.listen(PORT, () => {
   console.log(`Server Running On Port : ${PORT} `);
