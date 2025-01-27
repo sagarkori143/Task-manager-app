@@ -22,9 +22,14 @@ app.use([
     credentials: true,
     methods: ["GET", "PUT", "PATCH", "PUT", "DELETE"],
   }),
-  express.json(),
-  express.urlencoded({ extended: true }),
 ]);
+app.use(
+  cors({
+    origin: process.env.FRONTEND_DOMAIN,
+    credentials: true,
+    methods: ["GET", "POST", "PUT", "DELETE"],
+  })
+);
 
 const sessionStore = new MongoStore({
   mongoUrl: process.env.MONGO_URL,
@@ -38,19 +43,15 @@ app.use(
     store: sessionStore,
     cookie: {
       maxAge: 1000 * 60 * 60 * 24,
+      sameSite: 'None',
+      secure: true,
     },
   })
 );
 
 app.use(passport.initialize());
 app.use(passport.session());
-app.use(
-  cors({
-    origin: process.env.FRONTEND_DOMAIN,
-    credentials: true,
-    methods: ["GET", "POST", "PUT", "DELETE"],
-  })
-);
+
 
 app.get("/", (req, res) => {
   res.json(" hello ");
