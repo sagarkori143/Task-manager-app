@@ -44,6 +44,13 @@ app.use(
 
 app.use(passport.initialize());
 app.use(passport.session());
+app.use(
+  cors({
+    origin: process.env.FRONTEND_DOMAIN,
+    credentials: true,
+    methods: ["GET", "POST", "PUT", "DELETE"],
+  })
+);
 
 app.get("/", (req, res) => {
   res.json(" hello ");
