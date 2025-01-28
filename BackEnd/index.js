@@ -112,7 +112,7 @@ app.post("/login", (req, res, next) => {
 
     req.login(user, (err) => {
       if (err) return next(err);
-      return res.json({ message: "Successfully logged in", user });
+      return res.status(200).json({ success: true, message: "Successfully logged in", user });
     });
   })(req, res, next);
 });
