@@ -25,23 +25,26 @@ const app = express();
 //   })
 // );
 // app.use(express.json()); // Parses incoming JSON requests
-const allowedOrigins = [
-  "http://localhost:3000", // Development
-  "https://task-manager-app-six-phi.vercel.app", // Production
-];
+// const allowedOrigins = [
+//   "http://localhost:3000", // Development
+//   "https://task-manager-app-six-phi.vercel.app", // Production
+// ];
 
-app.use(
-  cors({
-    origin: (origin, callback) => {
-      if (!origin || allowedOrigins.includes(origin)) {
-        callback(null, true);
-      } else {
-        callback(new Error("Not allowed by CORS"));
-      }
-    },
-    credentials: true,
-  })
-);
+// app.use(
+//   cors({
+//     origin: (origin, callback) => {
+//       if (!origin || allowedOrigins.includes(origin)) {
+//         callback(null, true);
+//       } else {
+//         callback(new Error("Not allowed by CORS"));
+//       }
+//     },
+//     credentials: true,
+//   })
+// );
+// app.options("*", cors());
+app.use(cors({ origin: "*", credentials: true }));
+
 
 
 // MongoDB session store
