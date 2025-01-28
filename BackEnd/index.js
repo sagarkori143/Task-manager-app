@@ -19,35 +19,21 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true })); // If you use URL-encoded forms
 
-// Middleware
-// app.use(
-//   cors({
-//     origin: process.env.FRONTEND_DOMAIN,
-//     credentials: true,
-//     methods: ["GET", "POST", "PUT", "PATCH", "DELETE"],
-//   })
-// );
-// app.use(express.json()); // Parses incoming JSON requests
-const allowedOrigins = [
-  "http://localhost:3000", // Development
-  "https://task-manager-app-six-phi.vercel.app", // Production
-];
-
 app.use(
   cors({
-    origin: (origin, callback) => {
-      if (!origin || allowedOrigins.includes(origin)) {
-        callback(null, true);
-      } else {
-        callback(new Error("Not allowed by CORS"));
-      }
-    },
+    origin: "https://task-manager-app-six-phi.vercel.app", // Replace with your frontend domain
     credentials: true,
+    methods: ["GET", "POST", "PUT", "PATCH", "DELETE"], // Allowed methods
+    allowedHeaders: ["Content-Type", "Authorization"], // Allowed headers
   })
 );
+
 app.options("*", cors());
 app.use((req, res, next) => {
-  console.log("Request origin:", req.headers.origin);
+  console.log("Incoming Request:");
+  console.log("Origin:", req.headers.origin);
+  console.log("Method:", req.method);
+  console.log("Headers:", req.headers);
   next();
 });
 
