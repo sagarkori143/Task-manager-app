@@ -46,15 +46,34 @@ export default function Mainpage({ toast, signIn, user }) {
       toast.error("Enter the details");
       return;
     }
+    // axios
+    //   .post(`${process.env.REACT_APP_API_URL}/login`, userLogin)
+    //   .then((result) => {
+    //     console.log(result);
+    //     if (result.data.success) {
+    //       toast.success("Login successfully");
+    //       user = false;
+    //       localStorage.setItem('authToken', result.data.token);
+    //       console.log("Login successful, token received!", localStorage.getItem('authToken'));
+    //       navigate("/Home");
+    //     } else {
+    //       toast.error("Enter the correct details");
+    //       setUserLogin({ email: "", password: "" });
+    //     }
+    //   })
+    //   .catch((err) => {
+    //     console.log(err);
+    //   });
+    axios.defaults.baseURL = process.env.REACT_APP_API_URL;  // Set your backend URL here
+
     axios
-      .post(`${process.env.REACT_APP_API_URL}/login`, userLogin)
+      .post('/login', userLogin, { withCredentials: true })  // Send request with credentials (cookies)
       .then((result) => {
         console.log(result);
         if (result.data.success) {
-          toast.success("Login successfully");
-          user = false;
-          localStorage.setItem('authToken', result.data.token);
-          console.log("Login successful, token received!", localStorage.getItem('authToken'));
+          toast.success("Login successful");
+          // No need to use localStorage to store token when using sessions
+          console.log("Login successful, session cookie should be set automatically.");
           navigate("/Home");
         } else {
           toast.error("Enter the correct details");
@@ -63,6 +82,7 @@ export default function Mainpage({ toast, signIn, user }) {
       })
       .catch((err) => {
         console.log(err);
+        toast.error("An error occurred during login.");
       });
     setUserLogin({ email: "", password: "" });
   };
