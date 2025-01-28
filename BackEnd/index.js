@@ -15,6 +15,9 @@ const TaskRoutes = require("./Routes/TaskRoutes");
 const PORT = 8080;
 
 const app = express();
+// Middleware to parse JSON
+app.use(express.json());
+app.use(express.urlencoded({ extended: true })); // If you use URL-encoded forms
 
 // Middleware
 // app.use(
