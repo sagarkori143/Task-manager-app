@@ -12,20 +12,37 @@ const passport = require("passport");
 const TodoRoutes = require("./Routes/TodoRoutes");
 const NoteRoutes = require("./Routes/NoteRoutes");
 const TaskRoutes = require("./Routes/TaskRoutes");
-
 const PORT = 8080;
 
 const app = express();
 
 // Middleware
+// app.use(
+//   cors({
+//     origin: process.env.FRONTEND_DOMAIN,
+//     credentials: true,
+//     methods: ["GET", "POST", "PUT", "PATCH", "DELETE"],
+//   })
+// );
+// app.use(express.json()); // Parses incoming JSON requests
+const allowedOrigins = [
+  "http://localhost:3000", // Development
+  "https://task-manager-app-six-phi.vercel.app", // Production
+];
+
 app.use(
   cors({
-    origin: process.env.FRONTEND_DOMAIN,
+    origin: (origin, callback) => {
+      if (allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
     credentials: true,
-    methods: ["GET", "POST", "PUT", "PATCH", "DELETE"],
   })
 );
-app.use(express.json()); // Parses incoming JSON requests
+
 
 // MongoDB session store
 const sessionStore = new MongoStore({
