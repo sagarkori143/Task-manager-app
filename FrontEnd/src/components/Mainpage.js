@@ -73,7 +73,7 @@ export default function Mainpage({ toast, signIn, user }) {
         if (result.data.success) {
           toast.success("Login successful");
           // No need to use localStorage to store token when using sessions
-          console.log("Login successful, session cookie should be set automatically.");
+          console.log("Login successful, session cookie should be set automatically.",result.data);
           navigate("/Home");
         } else {
           toast.error("Enter the correct details");

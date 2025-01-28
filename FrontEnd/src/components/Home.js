@@ -22,10 +22,7 @@ const Home = ({ tasks }) => {
   useEffect(() => {
     Aos.init({ duration: 1000 });
     
-     axios.get(`${process.env.REACT_APP_API_URL}/getUser`, {
-    withCredentials: true,
-    headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } // Add token here
-     })
+     axios.get(`${process.env.REACT_APP_API_URL}/getUser`, {withCredentials: true,})
     .then((res) => {
     setUser(res.data);
      })
