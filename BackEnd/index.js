@@ -19,12 +19,20 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true })); // If you use URL-encoded forms
 
+const allowedOrigins = [
+  "https://task-manager-app-six-phi.vercel.app", // Your frontend domain
+];
+
 app.use(
   cors({
-    origin: "https://task-manager-app-six-phi.vercel.app", // Replace with your frontend domain
-    credentials: true,
-    methods: ["GET", "POST", "PUT", "PATCH", "DELETE"], // Allowed methods
-    allowedHeaders: ["Content-Type", "Authorization"], // Allowed headers
+    origin: (origin, callback) => {
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
+    credentials: true, // Allow credentials (cookies, headers, etc.)
   })
 );
 
