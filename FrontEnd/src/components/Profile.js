@@ -28,9 +28,11 @@ const Profile = ({ tasks }) => {
         setAuthor(quotes.author);
       });
     axios
-      .get(`${process.env.REACT_APP_API_URL}/getUser`, { withCredentials: true })
+      .get(`${process.env.REACT_APP_API_URL}/getUser`, {
+        withCredentials: true,
+        headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } // Add token here
+      })
       .then((res) => {
-        // console.log(res.data);
         setUser(res.data);
       })
       .catch((err) => console.log(err));

@@ -22,13 +22,14 @@ const Home = ({ tasks }) => {
   useEffect(() => {
     Aos.init({ duration: 1000 });
     
-    axios.get('https://task-manager-app-v8af.onrender.com/getUser', { withCredentials: true })
-      .then(response => {
-        console.log('User:', response.data);
-      })
-      .catch(error => {
-        console.error('Error fetching user:', error);
-      });
+     axios.get(`${process.env.REACT_APP_API_URL}/getUser`, {
+    withCredentials: true,
+    headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } // Add token here
+     })
+    .then((res) => {
+    setUser(res.data);
+     })
+  .catch((err) => console.log(err));
   }, []);
 
   return (
