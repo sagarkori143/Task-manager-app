@@ -22,7 +22,7 @@ const Home = ({ tasks }) => {
   useEffect(() => {
     Aos.init({ duration: 1000 });
     
-     axios.get(`${process.env.REACT_APP_API_URL}/getUser`, {withCredentials: true,})
+    axios.get(`${process.env.REACT_APP_API_URL}/getUser`, { credentials: 'include',})
     .then((res) => {
     setUser(res.data);
      })

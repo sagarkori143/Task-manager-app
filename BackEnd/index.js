@@ -104,27 +104,6 @@ const oauthCallback = (strategy) => (req, res) => {
 app.get("/google/callback", oauthCallback("google"));
 app.get("/facebook/callback", oauthCallback("facebook"));
 
-// Local Login
-// app.post("/login", (req, res, next) => {
-//   passport.authenticate("local", (err, user, info) => {
-//     if (err) return next(err);
-//     if (!user) return res.status(401).json({ message: "Invalid credentials" });
-
-//     req.login(user, (err) => {
-//       if (err) return next(err);
-
-//       // Generate JWT token
-//       const token = jwt.sign(
-//         { id: user.id, email: user.email },
-//         process.env.JWT_SECRET_KEY,
-//         { expiresIn: '1h' } // Token expires in 1 hour
-//       );
-
-
-//       return res.status(200).json({ success: true, token: token, message: "Successfully logged in", user });
-//     });
-//   })(req, res, next);
-// });
 app.post("/login", (req, res, next) => {
   passport.authenticate("local", (err, user, info) => {
     if (err) return next(err);

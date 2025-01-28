@@ -53,7 +53,7 @@ const Task = ({ toast, tasks, setTasks }) => {
       done: false,
     };
     axios
-      .post(`${process.env.REACT_APP_API_URL}/task/postTask`, newTask, { withCredentials: true })
+      .post(`${process.env.REACT_APP_API_URL}/task/postTask`, newTask, { credentials: 'include' })
       .then((res) => console.log(res.data))
       .catch((err) => console.log(err));
 
