@@ -123,6 +123,7 @@ app.post("/login", (req, res, next) => {
       if (err) return next(err);
 
       // Session cookie is automatically set on successful login
+      console.log("Session Cookie Set:", req.sessionID); 
       return res.status(200).json({
         success: true,
         message: "Successfully logged in",
