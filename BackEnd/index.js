@@ -121,7 +121,7 @@ app.post("/login", (req, res, next) => {
       );
 
 
-      return res.status(200).json({ success: true, message: "Successfully logged in", user });
+      return res.status(200).json({ success: true, token: token, message: "Successfully logged in", user });
     });
   })(req, res, next);
 });
