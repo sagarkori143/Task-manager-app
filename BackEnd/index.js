@@ -137,6 +137,13 @@ app.post("/forgotpass", async (req, res) => {
 app.post("/resetPassword/:id/:token", async (req, res) => {
   // ... (keep existing implementation)
 });
+
+
+// Authentication Middleware
+const authenticator = (req, res, next) => {
+  if (req.isAuthenticated()) return next();
+  res.status(401).json({ error: "Unauthorized" });
+};
 app.get('/getUser', authenticator, async (req, res) => {
   try {
     const user = req.user; // Assuming user is attached to the session via passport
@@ -145,12 +152,6 @@ app.get('/getUser', authenticator, async (req, res) => {
     res.status(500).json({ message: 'Error fetching user', error: err.message });
   }
 });
-
-// Authentication Middleware
-const authenticator = (req, res, next) => {
-  if (req.isAuthenticated()) return next();
-  res.status(401).json({ error: "Unauthorized" });
-};
 
 // Protected Routes
 app.use("/todo", authenticator, TodoRoutes);
