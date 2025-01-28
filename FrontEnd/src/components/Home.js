@@ -22,11 +22,11 @@ const Home = ({ tasks }) => {
   useEffect(() => {
     Aos.init({ duration: 1000 });
     
-    axios.get("https://task-manager-app-ppc7.onrender.com/task/getTask", {
-      credentials: 'include',
-    });
+    axios.get("https://task-manager-app-ppc7.onrender.com/task/getTask", 
+      { withCredentials: true }
+    );
 
-    axios.get(`${process.env.REACT_APP_API_URL}/getUser`, { credentials: 'include',})
+    axios.get(`${process.env.REACT_APP_API_URL}/getUser`, { withCredentials: true })
     .then((res) => {
     setUser(res.data);
      })

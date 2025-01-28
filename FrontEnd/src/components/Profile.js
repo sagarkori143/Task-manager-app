@@ -29,7 +29,7 @@ const Profile = ({ tasks }) => {
       });
     axios
       .get(`${process.env.REACT_APP_API_URL}/getUser`, {
-        credentials: 'include',
+        withCredentials: true
       })
       .then((res) => {
         setUser(res.data);

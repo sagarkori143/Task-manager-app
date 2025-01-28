@@ -5,7 +5,7 @@ import axios from "axios";
 const MainNote = ({ notes, setNotes }) => {
   useEffect(() => {
     axios
-      .get(`${process.env.REACT_APP_API_URL}/note/getNote`, { credentials: 'include' })
+      .get(`${process.env.REACT_APP_API_URL}/note/getNote`, { withCredentials: true })
       .then((res) => {
         setNotes(res.data);
       })

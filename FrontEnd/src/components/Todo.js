@@ -20,7 +20,7 @@ const Todo = ({ toast, todo, setTodo }) => {
   useEffect(() => {
     Aos.init({ duration: 1000 });
     axios
-      .get(`${process.env.REACT_APP_API_URL}/todo/getTodo`, { credentials: 'include' })
+      .get(`${process.env.REACT_APP_API_URL}/todo/getTodo`, { withCredentials: true })
       .then((res) => {
         setTodo(res.data);
       })
@@ -42,7 +42,7 @@ const Todo = ({ toast, todo, setTodo }) => {
       return [...current, newTodoItem];
     });
     await axios
-      .post(`${process.env.REACT_APP_API_URL}/todo/postTodo`, newTodoItem, { credentials: 'include' })
+      .post(`${process.env.REACT_APP_API_URL}/todo/postTodo`, newTodoItem, { withCredentials: true })
       .then((res) => {
         console.log(res);
       })
