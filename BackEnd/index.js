@@ -148,6 +148,7 @@ app.post("/resetPassword/:id/:token", async (req, res) => {
 
 // Authentication Middleware
 const authenticator = (req, res, next) => {
+  console.log("this is the request coming from client",req)
   if (req.isAuthenticated()) return next();
   res.status(401).json({ error: "Unauthorized" });
 };
