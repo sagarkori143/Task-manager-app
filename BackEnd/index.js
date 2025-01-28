@@ -71,6 +71,15 @@ app.get("/", (req, res) => {
   res.json({ message: "Server is running" });
 });
 
+app.get("/getUser", (req, res, next) => {
+  if (req.user) {
+    return res.json(req.user); // Respond with the user data if authenticated
+  } else {
+    return res.status(401).json({ error: "Unauthorized" }); // Handle unauthenticated users
+  }
+});
+
+
 // Registration
 app.post("/register", async (req, res) => {
   const { userName, email, password } = req.body;
@@ -152,11 +161,6 @@ const authenticator = (req, res, next) => {
   if (req.isAuthenticated()) return next();
   res.status(401).json({ error: "Unauthorized" });
 };
-app.get("/getUser", (req, res, next) => {
-  if (req.user) {
-    res.json(req.user);
-  }
-});
 
 // Protected Routes
 app.use("/todo", authenticator, TodoRoutes);
