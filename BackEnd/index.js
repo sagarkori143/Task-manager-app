@@ -137,6 +137,14 @@ app.post("/forgotpass", async (req, res) => {
 app.post("/resetPassword/:id/:token", async (req, res) => {
   // ... (keep existing implementation)
 });
+app.get('/getUser', authenticator, async (req, res) => {
+  try {
+    const user = req.user; // Assuming user is attached to the session via passport
+    res.status(200).json(user);
+  } catch (err) {
+    res.status(500).json({ message: 'Error fetching user', error: err.message });
+  }
+});
 
 // Authentication Middleware
 const authenticator = (req, res, next) => {
