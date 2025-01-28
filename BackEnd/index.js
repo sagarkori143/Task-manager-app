@@ -28,23 +28,24 @@ app.use(express.urlencoded({ extended: true })); // If you use URL-encoded forms
 //   })
 // );
 // app.use(express.json()); // Parses incoming JSON requests
-const allowedOrigins = [
-  "http://localhost:3000", // Development
-  "https://task-manager-app-six-phi.vercel.app", // Production
-];
+// const allowedOrigins = [
+//   "http://localhost:3000", // Development
+//   "https://task-manager-app-six-phi.vercel.app", // Production
+// ];
 
-app.use(
-  cors({
-    origin: (origin, callback) => {
-      if (!origin || allowedOrigins.includes(origin)) {
-        callback(null, true);
-      } else {
-        callback(new Error("Not allowed by CORS"));
-      }
-    },
-    credentials: true,
-  })
-);
+// app.use(
+//   cors({
+//     origin: (origin, callback) => {
+//       if (!origin || allowedOrigins.includes(origin)) {
+//         callback(null, true);
+//       } else {
+//         callback(new Error("Not allowed by CORS"));
+//       }
+//     },
+//     credentials: true,
+//   })
+// );
+app.use(cors({ origin: 'https://task-manager-app-six-phi.vercel.app' }));
 app.options("*", cors());
 app.use((req, res, next) => {
   console.log("Request origin:", req.headers.origin);
@@ -80,7 +81,7 @@ app.get("/", (req, res) => {
   res.json({ message: "Server is running" });
 });
 
-app.post("/register", async (req, res) => {
+app.post("/register", cors(), async (req, res) => {
   console.log("Headers:", req.headers);
   console.log("Body:", req.body);
   const { userName, email, password } = req.body;
