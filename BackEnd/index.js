@@ -22,9 +22,9 @@ app.use(express.urlencoded({ extended: true }));
 
 // CORS Configuration
 const allowedOrigins = [
-  "https://task-manager-app-three-pi.vercel.app/",
-  process.env.NODE_ENV === 'development' && "http://localhost:3000"
-].filter(Boolean);
+  "https://task-manager-app-three-pi.vercel.app",
+  "http://localhost:3000"
+];
 
 app.use(
   cors({
