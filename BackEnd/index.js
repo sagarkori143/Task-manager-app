@@ -32,7 +32,9 @@ app.use(
         callback(new Error("Not allowed by CORS"));
       }
     },
-    credentials: true, // Allow credentials (cookies, headers, etc.)
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
+    credentials: true,
   })
 );
 
@@ -57,6 +59,7 @@ app.use(
     secret: process.env.SESSION_SECRET, // Strong, secure key
     resave: false,
     saveUninitialized: false,
+    store: sessionStore,
     cookie: {
       httpOnly: true,
       secure: true, // Set true for HTTPS in production
