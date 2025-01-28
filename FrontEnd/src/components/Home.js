@@ -11,7 +11,7 @@ import axios from "axios";
 
 const Home = ({ tasks }) => {
   const [loading, setLoading] = useState(false);
-
+  const [user,setUser]=("")
   useEffect(() => {
     setLoading(true);
     setTimeout(() => {
