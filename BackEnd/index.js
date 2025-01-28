@@ -78,6 +78,7 @@ app.get("/", (req, res) => {
 });
 
 app.post("/register", async (req, res) => {
+  console.log("user body",req.body)
   const { userName, email, password } = req.body;
   try {
     const userExists = await authModel.findOne({ email });

@@ -42,7 +42,7 @@ export default function Mainpage({ toast, signIn, user }) {
   axios.defaults.withCredentials = true;
   const handleLogin = (e) => {
     e.preventDefault();
-    if (userLogin.email === "" || userLogin.password === "") {
+    if (userLogin.email === "" || userLogin.password === "" || userLogin.userName==="") {
       toast.error("Enter the details");
       return;
     }
