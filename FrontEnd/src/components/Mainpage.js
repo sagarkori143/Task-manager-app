@@ -68,7 +68,8 @@ export default function Mainpage({ toast, signIn, user }) {
   const handleRegister = (e) => {
     e.preventDefault();
     axios
-      .post(`${process.env.REACT_APP_API_URL}/register`, users)
+      .post(`${process.env.REACT_APP_API_URL}/register`, users, {headers: {'Content-Type': 'application/json',},
+      })
       .then((result) => {
         console.log(result);
         if (result.data !== "Already Registerd") {
