@@ -112,6 +112,15 @@ app.post("/login", (req, res, next) => {
 
     req.login(user, (err) => {
       if (err) return next(err);
+
+      // Generate JWT token
+      const token = jwt.sign(
+        { id: user.id, email: user.email },
+        process.env.JWT_SECRET_KEY,
+        { expiresIn: '1h' } // Token expires in 1 hour
+      );
+
+
       return res.status(200).json({ success: true, message: "Successfully logged in", user });
     });
   })(req, res, next);

@@ -53,6 +53,8 @@ export default function Mainpage({ toast, signIn, user }) {
         if (result.data.success) {
           toast.success("Login successfully");
           user = false;
+          localStorage.setItem('authToken', result.data.token);
+          console.log("Login successful, token received!");
           navigate("/Home");
         } else {
           toast.error("Enter the correct details");
